@@ -1,0 +1,27 @@
+=== Semantic Graph Metrics ===
+
+Graph Structure:
+  - Nodes: 307
+  - Edges: 638
+  - Density: 0.0136 (complete graph = 1.0, tree = ~2/n)
+  - Average Degree: 4.1564 (expected: ~2.91)
+  - Connected Components: 1
+  - Largest Component: 307 nodes (100.0% of total)
+  - Clustering Coefficient: 0.0657 (0-1, higher = more clustered)
+
+Node Degrees (sample):
+    something: 34
+    that: 31
+    state: 21
+    money: 18
+    mattress: 18
+    cushions: 15
+    other: 14
+    such: 14
+    physical: 14
+    one: 13
+    ... and 297 more
+
+Semantic Validation (WordSim353):
+  - Spearman Correlation: 0.3381
+  - P-value: 0.5122
