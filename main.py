@@ -50,6 +50,31 @@ def main():
     )
     semantic_graph = parser.build_graph()
     
+    # Save the graph to GraphML file for later use in the search demo
+    if not os.path.exists('output'):
+        os.makedirs('output')
+        
+    # Create a simplified graph with only necessary attributes for searching
+    search_graph = nx.Graph()
+    
+    # Copy nodes and edges, converting SemanticNode objects to simple string attributes
+    for node, data in semantic_graph.graph.nodes(data=True):
+        node_data = data.get('data', {})
+        node_attrs = {}
+        if hasattr(node_data, 'pos'):
+            node_attrs['pos'] = str(node_data.pos)
+        if hasattr(node_data, 'definition'):
+            node_attrs['definition'] = str(node_data.definition)
+        search_graph.add_node(str(node), **node_attrs)
+    
+    # Copy edges with weights
+    for u, v, data in semantic_graph.graph.edges(data=True):
+        search_graph.add_edge(str(u), str(v), weight=float(data.get('weight', 1.0)))
+    
+    # Save the simplified graph in GraphML format
+    nx.write_graphml(search_graph, 'output/semantic_graph.graphml')
+    print("Graph saved to output/semantic_graph.graphml")
+    
     num_nodes = len(semantic_graph.graph.nodes)
     num_edges = len(semantic_graph.graph.edges)
     
